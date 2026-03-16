@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Obsidian Sidecar</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;padding:12px;background:#f6f8ff;color:#1d2a44}
+    textarea,input{width:100%;box-sizing:border-box;border:1px solid #dbe4ff;border-radius:10px;padding:8px;margin:6px 0}
+    .card{background:#fff;border:1px solid #dbe4ff;border-radius:12px;padding:10px;margin-bottom:10px}
+    button{border:0;border-radius:10px;padding:8px 10px;background:#2f6fff;color:#fff;cursor:pointer}
+    .muted{font-size:12px;color:#60739c}
+    .row{display:flex;gap:8px}
+    .row button{flex:1}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div><b>最近选中文本</b></div>
+    <div id="meta" class="muted">尚未捕获</div>
+    <textarea id="selection" rows="6" placeholder="在 ChatGPT 页面选中文字后会出现在这里"></textarea>
+  </div>
+
+  <div class="card">
+    <div><b>标签 / 备注</b></div>
+    <input id="tags" placeholder="例如：#产品 #调研 #AI" />
+    <textarea id="note" rows="4" placeholder="你自己的补充说明"></textarea>
+    <button id="summarizeBtn">自动总结</button>
+    <textarea id="summary" rows="5" placeholder="总结结果"></textarea>
+  </div>
+
+  <div class="card">
+    <div><b>写入 Obsidian</b></div>
+    <input id="vault" placeholder="Vault 名称（与 Obsidian 一致）" />
+    <input id="file" placeholder="目标文档（如 Inbox/ChatGPT-Notes.md）" />
+    <div class="row">
+      <button id="saveCfgBtn">保存配置</button>
+      <button id="writeBtn">写入文档</button>
+    </div>
+    <div id="status" class="muted"></div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

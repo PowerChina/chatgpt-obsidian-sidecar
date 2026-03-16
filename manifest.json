@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT → Obsidian Sidecar",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "在 ChatGPT 选中文本并在右侧浮窗打标签/总结后写入 Obsidian",
   "permissions": [
     "storage",

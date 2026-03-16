@@ -13,6 +13,8 @@
     .row{display:flex;gap:8px}
     .row button{flex:1}
     details>summary{cursor:pointer;color:#2f6fff;font-weight:600}
+    ul{margin:8px 0;padding-left:18px}
+    .danger{background:#d9534f}
   </style>
 </head>
 <body>
@@ -24,13 +26,30 @@
 
   <div class="card">
     <div><b>标签 / 备注 / 总结</b></div>
+    <select id="tagTemplate">
+      <option value="">选择标签模板（可选）</option>
+      <option value="#产品 #需求">产品需求</option>
+      <option value="#技术 #实现">技术实现</option>
+      <option value="#风险 #问题">风险问题</option>
+      <option value="#会议 #纪要">会议纪要</option>
+    </select>
     <input id="tags" placeholder="例如：#产品 #调研 #AI" />
-    <textarea id="note" rows="4" placeholder="你自己的补充说明"></textarea>
+    <textarea id="note" rows="3" placeholder="你自己的补充说明"></textarea>
     <div class="row">
       <button id="summarizeBtn">自动总结（LLM优先）</button>
-      <button id="quickSummaryBtn">快速总结（本地）</button>
+      <button id="quickSummaryBtn">快速总结</button>
     </div>
-    <textarea id="summary" rows="6" placeholder="总结结果"></textarea>
+    <textarea id="summary" rows="5" placeholder="总结结果"></textarea>
+  </div>
+
+  <div class="card">
+    <div><b>批量片段队列（防重复）</b></div>
+    <div class="row">
+      <button id="enqueueBtn">加入队列</button>
+      <button id="clearQueueBtn" class="danger">清空队列</button>
+    </div>
+    <div id="queueMeta" class="muted">队列 0 条</div>
+    <ul id="queueList"></ul>
   </div>
 
   <div class="card">
@@ -43,19 +62,20 @@
     <input id="file" placeholder="目标文档（如 Inbox/ChatGPT-Notes.md）" />
     <div class="row">
       <button id="saveCfgBtn">保存配置</button>
-      <button id="writeBtn">写入文档</button>
+      <button id="writeBtn">写入当前</button>
+      <button id="writeQueueBtn">批量写入队列</button>
     </div>
     <div id="status" class="muted"></div>
   </div>
 
   <details class="card">
-    <summary>高级配置（LLM 与 Obsidian API）</summary>
-    <div class="muted">LLM 使用 OpenAI 兼容接口；Obsidian REST 需启用 Local REST API 插件。</div>
-    <input id="llmEndpoint" placeholder="LLM Endpoint（默认 https://api.openai.com/v1/chat/completions）" />
+    <summary>高级配置（LLM / Obsidian REST / 自动路由）</summary>
+    <input id="llmEndpoint" placeholder="LLM Endpoint" />
     <input id="llmApiKey" placeholder="LLM API Key" type="password" />
-    <input id="llmModel" placeholder="LLM Model（默认 gpt-4o-mini）" />
+    <input id="llmModel" placeholder="LLM Model" />
     <input id="obsidianRestBase" placeholder="Obsidian REST Base（默认 http://127.0.0.1:27124）" />
     <input id="obsidianApiKey" placeholder="Obsidian REST API Key" type="password" />
+    <textarea id="routeRules" rows="4" placeholder='自动路由规则，每行：#标签=>路径\n例如：\n#产品=>Inbox/Product.md\n#技术=>Inbox/Tech.md'></textarea>
   </details>
 
   <script src="sidepanel.js"></script>
